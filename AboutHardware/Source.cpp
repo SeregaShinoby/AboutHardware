@@ -31,7 +31,7 @@ WCHAR* getGPUDesc() {
     return desc.Description;
 }
 
-/* Return name of brand your processor */
+/* Return name of brand your CPU */
 
 std::string getCPUBrand() {
     int nExIds;
