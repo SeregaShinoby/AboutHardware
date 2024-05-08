@@ -11,7 +11,7 @@
 #include <dxgi.h> /* https://en.wikipedia.org/wiki/DirectX_Graphics_Infrastructure */
 
 /* Include library for DXGI */
-#pragma comment (lib, "dxgi.lib")
+#pragma comment(lib, "dxgi.lib")
 
 /* Return description of your GPU */
 
@@ -21,12 +21,14 @@ WCHAR* getGPU() {
 
     IDXGIAdapter1* Adapter;
 
+    /* Take a first GPU and write information about it */
     pFactory->EnumAdapters1(0, &Adapter);
 
-    DXGI_ADAPTER_DESC1 desk;
-    Adapter->GetDesc1(&desk);
+    /* Get descritpion about GPU */
+    DXGI_ADAPTER_DESC1 desc;
+    Adapter->GetDesc1(&desc);
 
-    return desk.Description;
+    return desc.Description;
 }
 
 /* Return name of brand your processor */
