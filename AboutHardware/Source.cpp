@@ -2,10 +2,8 @@
 #include <iostream>
 #include <string>
 #include <intrin.h>
-#include <bitset>
 #include <array>
 #include <vector>
-#include <bitset>
 
 /* Thrid party libraries */
 #include <dxgi.h> /* https://en.wikipedia.org/wiki/DirectX_Graphics_Infrastructure */
@@ -15,9 +13,11 @@
 
 /* Return description of your GPU */
 
-WCHAR* getGPU() {
+WCHAR* getGPUDesc() {
     IDXGIFactory1* pFactory;
-    HRESULT res = CreateDXGIFactory1(__uuidof(IDXGIFactory1), (void**)(&pFactory));
+
+    /* Create factory and put it in pFactory pointer */
+    CreateDXGIFactory1(__uuidof(IDXGIFactory1), (void**)(&pFactory));
 
     IDXGIAdapter1* Adapter;
 
@@ -39,23 +39,20 @@ std::string getCPUBrand() {
     std::vector<std::array<int, 4>> data;
     std::array<int, 4> cpui;
 
-    std::bitset<32> f_81_ECX;
-    std::bitset<32> f_81_EDX;
-
+    /* Put CPU information in cpui */
     __cpuid(cpui.data(), 0x80000000);
+
+    /* Put in nExIds EAX code */
     nExIds = cpui[0];
 
     char brand[0x40];
+
+    /* Fill array brand with zeros */
     memset(brand, 0, sizeof(brand));
 
     for (int i = 0x80000000; i <= nExIds; i++) {
         __cpuidex(cpui.data(), i, 0);
         data.push_back(cpui);
-    }
-
-    if (nExIds >= 0x80000001) {
-        f_81_ECX = data[1][2];
-        f_81_EDX = data[1][3];
     }
 
     if (nExIds >= 0x80000004) {
@@ -71,6 +68,6 @@ std::string getCPUBrand() {
 
 int main() {
     std::cout << getCPUBrand() << std::endl;
-    wprintf(L"%s\n", getGPU());
+    wprintf(L"%s\n", getGPUDesc());
     return 0;
 }
