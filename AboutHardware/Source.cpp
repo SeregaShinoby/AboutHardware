@@ -1,13 +1,3 @@
-/*                                                                          *
-*                                                                           *
-*                                                                           *
-*                   GameX Studio inc. (2023 - 2024)                         *
-*                                                                           *
-*       This program scanning your PC and show CPU and GPU in your PC       *
-*                                                                           *
-*                                                                           *
-*                                                                           */                                                                      
-
 /* STL libraries */
 #include <iostream>
 #include <string>
@@ -23,9 +13,9 @@
 /* Include library for DXGI */
 #pragma comment (lib, "dxgi.lib")
 
-/* Return description of your videocard */
+/* Return description of your GPU */
 
-WCHAR* getVideocard() {
+WCHAR* getGPU() {
     IDXGIFactory1* pFactory;
     HRESULT res = CreateDXGIFactory1(__uuidof(IDXGIFactory1), (void**)(&pFactory));
 
@@ -39,7 +29,7 @@ WCHAR* getVideocard() {
     return desk.Description;
 }
 
-/* Return name of vender your processor */
+/* Return name of brand your processor */
 
 std::string getCPUBrand() {
     int nExIds;
@@ -75,19 +65,10 @@ std::string getCPUBrand() {
     return brand;
 }
 
-std::string getSpaceOfRAMInGB() {
-    MEMORYSTATUSEX memEx;
-    GlobalMemoryStatusEx(&memEx);
-
-    return "Not work";
-}
-
-
 /*======================== Main ===========================*/
 
 int main() {
     std::cout << getCPUBrand() << std::endl;
-    wprintf(L"%s\n", getVideocard());
-    std::cout << getSpaceOfRAMInGB() << std::endl;
+    wprintf(L"%s\n", getGPU());
     return 0;
 }
